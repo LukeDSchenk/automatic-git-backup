@@ -20,6 +20,7 @@ notice that there is some code in there related to log files and configured git 
 * Concurrent execution
   * Logging moved to file instead of stdout (to work better with concurrency)
 * agb ignore files (kinda like .gitignore)
+* Automatically pull all repos upon startup
 * whatever else I think of/care to add
 * whatever else others think of/want me to add
 
