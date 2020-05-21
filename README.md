@@ -17,6 +17,9 @@ notice that there is some code in there related to log files and configured git 
 
 ## Coming features
 
+* *Logging to files*
+* *Goroutines*
+
 * Concurrent execution
   * Logging moved to file instead of stdout (to work better with concurrency)
 * agb ignore files (kinda like .gitignore)

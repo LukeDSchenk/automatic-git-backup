@@ -1,4 +1,4 @@
-package main // because this is package main, it is an executable package
+package main
 
 import (
     "log"
@@ -15,7 +15,7 @@ func verify_setup(log_path string, git_path string) error {
         return err
     }
     if made == false {
-        return errors.New("agb has not been properly initialized; run `sudo agb init` to correct this issue")
+        return errors.New("The specified loggin directory does not exist. Check your config: /etc/agb/agb.conf")
     }
 
     // verify that the git root path exists
@@ -31,16 +31,20 @@ func verify_setup(log_path string, git_path string) error {
 }
 
 func main() {
-    // move these to a config file
-    log_path := "/var/log/agb"
-    git_path := "/home/luke/Projects/Go/agb-test-repos" // the root path for searching for git repos
+    // Read the config file at /var/log/agb/agb.conf
+    conf, err := agb.Read_config("/home/luke/Projects/Go/automatic-git-backup/example.conf")
+    if err != nil {
+        println(err.Error())
+    }
+    println(conf.Log_path)
+    println(conf.Git_path)
 
     // verify agb setup
-    err := verify_setup(log_path, git_path)
+    err = verify_setup(conf.Log_path, conf.Git_path)
     if err != nil {
         log.Fatal(err)
     }
 
-    agb.Check_for_git(git_path)
+    agb.Check_for_git(conf.Git_path)
     println("All operations complete! Repositories have been backed up to their respective remote origins.")
 }
